@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Calculator</title>
+    <style>
+        /* Import Noto Nastaliq Urdu from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #007bff;
+            --primary-hover-color: #0056b3;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --text-color: #212529;
+            --border-color: #ced4da;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            direction: rtl;
+            background-color: var(--light-gray);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 550px;
+            text-align: right;
+        }
+
+        h1 {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-gray);
+            font-weight: 400;
+            font-size: 1.15em;
+        }
+
+        .input-group input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            text-align: left;
+            font-size: 1em;
+            font-family: system-ui, sans-serif;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-group input[type="number"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+            outline: none;
+        }
+        .input-group input[type="number"]::-webkit-outer-spin-button,
+        .input-group input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .input-group input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.25em;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', system-ui, sans-serif;
+            font-weight: 700;
+            width: 100%;
+            transition: background-color 0.2s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover-color);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .error {
+            color: var(--danger-color);
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 1em;
+            font-weight: 400;
+            display: none;
+            text-align: center;
+        }
+
+        /* Results Card Styling */
+        .results {
+            margin-top: 30px;
+            padding: 20px 25px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .results h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.7em;
+            color: var(--primary-color);
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-color);
+            font-weight: 700;
+        }
+
+        .results p {
+            margin: 0;
+            padding: 14px 0;
+            font-size: 1.2em;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        .results p:last-child {
+            border-bottom: none;
+        }
+
+        .results p strong { /* Label part */
+            font-weight: 400;
+            color: var(--dark-gray);
+            margin-inline-end: 10px;
+        }
+
+        .results p .value,
+        .results p .profit,
+        .results p .loss { /* Value part */
+            font-weight: 700;
+            text-align: left;
+            font-family: system-ui, sans-serif; /* Numbers in standard font */
+        }
+
+        .results p .value {
+            color: var(--text-color);
+        }
+
+        .profit {
+            color: var(--success-color) !important;
+        }
+
+        .loss {
+            color: var(--danger-color) !important;
+        }
+        /* End Results Card Styling */
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+                align-items: flex-start;
+                font-size: 16px;
+            }
+            .container {
+                padding: 20px;
+                max-width: 100%;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .input-group input[type="number"] {
+                padding: 10px 12px;
+            }
+            button {
+                padding: 12px 18px;
+                font-size: 1.15em;
+            }
+            .results h2 {
+                font-size: 1.5em;
+            }
+            .results p {
+                font-size: 1.1em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container"> <button class="home-button" onclick="location.href='home.html'"> <a href="index.html" style="text-decoration: none; color: inherit;">🏠 Home</a></button>    <h2>Word & Character Counter</h2>
+
+<button class="home-button" onclick="window.location.href='home.html'">Ad Area</button>
+        <h1>کریپٹو کیلکولیٹر</h1>
+
+        <div class="input-group">
+            <label for="purchasePrice">خریداری کی قیمت:</label>
+            <input type="number" id="purchasePrice" placeholder="مثال: 50000" inputmode="decimal">
+        </div>
+
+        <div class="input-group">
+            <label for="salePrice">فروخت کی قیمت:</label>
+            <input type="number" id="salePrice" placeholder="مثال: 60000" inputmode="decimal">
+        </div>
+
+        <div class="input-group">
+            <label for="totalInvestment">کتنے روپے کی خریداری کی؟</label>
+            <input type="number" id="totalInvestment" placeholder="مثال: 10000" inputmode="decimal">
+        </div>
+
+        <button onclick="calculateProfitLoss()">حساب لگائیں</button>
+
+        <div id="errorMessage" class="error"></div>
+
+        <div class="results" id="resultsArea" style="display: none;">
+            <h2>نتائج:</h2>
+            <p id="quantityPurchased"></p>
+            <p id="totalSaleValue"></p>
+            <p id="profitLossAmount"></p>
+            <p id="profitLossPercentage"></p>
+        </div>
+      <button class="home-button" onclick="window.location.href='home.html'">Ad Area</button>
+    </div>
+
+    <script>
+        function calculateProfitLoss() {
+            const purchasePriceInput = document.getElementById('purchasePrice');
+            const salePriceInput = document.getElementById('salePrice');
+            const totalInvestmentInput = document.getElementById('totalInvestment');
+
+            const purchasePrice = parseFloat(purchasePriceInput.value);
+            const salePrice = parseFloat(salePriceInput.value);
+            const totalInvestment = parseFloat(totalInvestmentInput.value);
+
+            const resultsArea = document.getElementById('resultsArea');
+            const errorMessageEl = document.getElementById('errorMessage');
+
+            resultsArea.style.display = 'none';
+            errorMessageEl.style.display = 'none';
+            errorMessageEl.innerHTML = '';
+
+            purchasePriceInput.style.borderColor = 'var(--border-color)';
+            salePriceInput.style.borderColor = 'var(--border-color)';
+            totalInvestmentInput.style.borderColor = 'var(--border-color)';
+
+            let errorMessages = [];
+            if (isNaN(purchasePrice) || purchasePrice <= 0) {
+                errorMessages.push('خریداری کی قیمت درست اور صفر سے زیادہ ہونی چاہیے۔');
+                purchasePriceInput.style.borderColor = 'var(--danger-color)';
+            }
+            if (isNaN(salePrice) || salePrice < 0) {
+                errorMessages.push('فروخت کی قیمت درست ہونی چاہیے اور منفی نہیں ہو سکتی۔');
+                salePriceInput.style.borderColor = 'var(--danger-color)';
+            }
+            if (isNaN(totalInvestment) || totalInvestment <= 0) {
+                errorMessages.push('کل سرمایہ کاری درست اور صفر سے زیادہ ہونی چاہیے۔');
+                totalInvestmentInput.style.borderColor = 'var(--danger-color)';
+            }
+
+            if (errorMessages.length > 0) {
+                errorMessageEl.innerHTML = errorMessages.join('<br>');
+                errorMessageEl.style.display = 'block';
+                return;
+            }
+
+            const quantity = totalInvestment / purchasePrice;
+            const totalSaleValue = quantity * salePrice;
+            const profitLoss = totalSaleValue - totalInvestment;
+            const percentageProfitLoss = (totalInvestment !== 0) ? (profitLoss / totalInvestment) * 100 : 0;
+
+            // Changed the label for quantity
+            document.getElementById('quantityPurchased').innerHTML = `<strong>خریداری کی مقدار:</strong><span class="value">${quantity.toFixed(8)}</span>`;
+            document.getElementById('totalSaleValue').innerHTML = `<strong>کل فروخت مالیت:</strong><span class="value">${totalSaleValue.toFixed(2)} روپے</span>`;
+      
+            const profitLossAmountEl = document.getElementById('profitLossAmount');
+            const profitLossPercentageEl = document.getElementById('profitLossPercentage');
+
+            if (profitLoss >= 0) {
+                profitLossAmountEl.innerHTML = `<strong>منافع:</strong><span class="profit">${profitLoss.toFixed(2)} روپے</span>`;
+                profitLossPercentageEl.innerHTML = `<strong>فیصد منافع:</strong><span class="profit">${percentageProfitLoss.toFixed(2)}%</span>`;
+            } else {
+                profitLossAmountEl.innerHTML = `<strong>نقصان:</strong><span class="loss">${Math.abs(profitLoss).toFixed(2)} روپے</span>`;
+                profitLossPercentageEl.innerHTML = `<strong>فیصد نقصان:</strong><span class="loss">${Math.abs(percentageProfitLoss).toFixed(2)}%</span>`;
+            }
+
+            resultsArea.style.display = 'block';
+
+            purchasePriceInput.value = '';
+            salePriceInput.value = '';
+            totalInvestmentInput.value = '';
+        }
+    </script>
+
+</body>
+</html>

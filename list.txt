@@ -1,0 +1,81 @@
+Productivity Tools
+📋 To-Do List
+
+🗒️ Notes App
+
+📅 Daily Planner / Calendar
+
+⏰ Countdown Timer / Pomodoro Timer
+
+📑 Text Editor (like Notepad)
+
+📦 Packing / Shopping Checklist
+
+🧾 Simple Invoice Generator
+
+📊 Budget Planner / Expense Tracker
+
+✅ Math & Utility Tools
+🧮 Calculator (Basic & Scientific)
+
+📐 Unit Converter (Length, Weight, etc.)
+
+📈 Percentage / Profit / Discount Calculator
+
+💱 Currency Converter (Static Rates)
+
+📆 Age or Date Difference Calculator
+
+📊 GPA / CGPA Calculator
+
+🧾 EMI / Loan Calculator (with graphs)
+
+✅ Creative Tools
+🎨 Drawing Pad / Sketch Board
+
+🖼️ Image Filter Tool (black & white, brightness)
+
+🎭 Meme Generator (add text on image)
+
+📷 Webcam Snapshot Tool
+
+🖌️ Signature Pad (canvas based)
+
+✅ Text & Content Tools
+📝 Text Case Converter (Uppercase/Lowercase)
+
+🔁 Text Reverser / Word Counter
+
+✂️ Text Splitter or Duplicates Remover
+
+🔐 Password Generator (custom rules)
+
+📄 Lorem Ipsum Generator
+
+📌 Sticky Notes (with localStorage)
+
+✅ Games & Fun
+🎮 Flappy Bird Clone
+
+🧠 Quiz Game (MCQs with score)
+
+🧩 Memory Match Game
+
+🔤 Typing Speed Test
+
+🎲 Dice Roller / Random Number Generator
+
+🃏 Rock Paper Scissors Game
+
+✅ File & Device Tools
+🗃️ File Size Calculator (for text inputs)
+
+📁 Base64 Encoder/Decoder
+
+🎤 Voice Recorder (Web Audio API)
+
+🔊 Audio Player with Controls
+
+🎛️ HTML5 Video/Audio Trimmer (basic)
+
+🔍 Magnifier Tool (zoom into text/image)

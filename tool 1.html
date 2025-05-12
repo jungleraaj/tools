@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uppercase to Lowercase Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      padding: 20px;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .ad-placeholder {
+      height: 60px;
+      background-color: #ddd;
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #666;
+    }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #6c5ce7;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background-color: #4e44c7;
+    }
+    .output {
+      width: 100%;
+      padding: 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      min-height: 50px;
+      margin-top: 10px;
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+ <button class="home-button" onclick="location.href='home.html'"> <a href="index.html" style="text-decoration: none; color: inherit;">🏠 Home</a></button>
+
+  <!-- Top Ad Banner -->
+  <div class="ad-placeholder">Top Ad Area</div>
+
+  <header>Uppercase to Lowercase Converter</header>
+
+  <div class="container">
+    <input type="text" id="inputText" placeholder="Enter text">
+    <button onclick="convertToLower()">Convert to Lowercase</button>
+    <button onclick="convertToUpper()">Convert to Uppercase</button>
+    <div class="output" id="outputText"></div>
+  </div>
+
+  <!-- Bottom Ad Banner -->
+  <div class="ad-placeholder">Bottom Ad Area</div>
+
+  <script>
+    function convertToLower() {
+      var input = document.getElementById('inputText').value;
+      var output = input.toLowerCase();
+      document.getElementById('outputText').textContent = output;
+    }
+
+    function convertToUpper() {
+      var input = document.getElementById('inputText').value;
+      var output = input.toUpperCase();
+      document.getElementById('outputText').textContent = output;
+    }
+  </script>
+
+</body>
+</html>

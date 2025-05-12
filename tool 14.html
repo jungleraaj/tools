@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internet Speed Checker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .speed-display {
+      font-size: 20px;
+      margin-top: 15px;
+      color: #333;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .loading {
+      font-size: 18px;
+      color: #f39c12;
+    }
+
+    /* Digital speed display style */
+    .digital-display {
+      font-size: 60px;
+      font-weight: bold;
+      margin-top: 30px;
+      color: #333;
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 2px;
+    }
+
+    /* Speed Background Color */
+    .speed-good {
+      color: #28a745; /* Green */
+    }
+
+    .speed-average {
+      color: #ffc107; /* Yellow */
+    }
+
+    .speed-poor {
+      color: #dc3545; /* Red */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+
+<button class="home-button" onclick="location.href='home.html'"> <a href="index.html" style="text-decoration: none; color: inherit;">🏠 Home</a></button>
+
+  <!-- Ad Button Before Tool -->
+    <button class="ad-button">Ad: Your Ad Here</button>
+    <h1>Internet Speed Checker</h1>
+    <button onclick="checkSpeed()">Check Speed</button>
+    <div id="loading" class="loading" style="display:none;">Checking speed...</div>
+    <div id="speedResult" class="speed-display"></div>
+    <div id="digitalSpeed" class="digital-display"></div>
+  </div>
+
+  <script>
+    function checkSpeed() {
+      // Show loading message
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('speedResult').innerHTML = '';
+      document.getElementById('digitalSpeed').innerHTML = '';
+      document.getElementById('digitalSpeed').classList.remove('speed-good', 'speed-average', 'speed-poor');
+
+      var startTime, endTime;
+      var downloadSize = 5000000; // 5 MB file size for testing (you can change the size)
+
+      // Start time before downloading the file
+      startTime = new Date().getTime();
+
+      // Create a dummy image URL (this will simulate downloading a file)
+      var img = new Image();
+      img.src = "https://www.gstatic.com/webp/gallery/1.jpg?cache=" + Math.random(); // Random cache to bypass cache
+      img.onload = function () {
+        // End time after the file has loaded
+        endTime = new Date().getTime();
+
+        var duration = (endTime - startTime) / 1000; // Duration in seconds
+        var bitsLoaded = downloadSize * 8; // Convert 5MB to bits
+        var speedBps = bitsLoaded / duration; // Speed in bits per second
+        var speedMbps = (speedBps / 1000000).toFixed(2); // Convert to Mbps
+
+        // Hide loading message and show results
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('speedResult').innerHTML = `<p><strong>Download Speed:</strong> ${speedMbps} Mbps</p>`;
+        document.getElementById('digitalSpeed').innerHTML = `${speedMbps} Mbps`;
+
+        // Add color based on the speed
+        if (speedMbps >= 50) {
+          document.getElementById('digitalSpeed').classList.add('speed-good');
+        } else if (speedMbps >= 10) {
+          document.getElementById('digitalSpeed').classList.add('speed-average');
+        } else {
+          document.getElementById('digitalSpeed').classList.add('speed-poor');
+        }
+      };
+
+      img.onerror = function () {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('speedResult').innerHTML = '<p style="color: red;">Error fetching speed data. Please try again later.</p>';
+      };
+    }
+  </script>
+
+</body>
+</html>

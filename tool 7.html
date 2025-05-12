@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      max-width: 400px;
+      width: 100%;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .home-button, .ad-button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .home-button:hover, .ad-button:hover {
+      background-color: #218838;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .converter {
+      display: none;
+    }
+
+    @media (max-width: 500px) {
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Home Button -->
+  <button class="home-button" onclick="location.href='home.html'"> <a href="index.html" style="text-decoration: none; color: inherit;">🏠 Home</a></button>    <h2>Word & Character Counter</h2>
+
+  <h2>Unit Converter</h2>
+
+  <!-- Ad Button -->
+  <button class="ad-button">🔰 Ad Here</button>
+
+  <!-- Converter Selection Box -->
+  <select id="unitType" onchange="updateConverter()">
+    <option value="length">Length (km ⇌ miles)</option>
+    <option value="weight">Weight (kg ⇌ lbs)</option>
+    <option value="temperature">Temperature (°C ⇌ °F)</option>
+    <option value="area">Area (sq meters ⇌ sq feet)</option>
+    <option value="volume">Volume (liters ⇌ gallons)</option>
+    <option value="speed">Speed (km/h ⇌ mph)</option>
+    <option value="time">Time (seconds ⇌ minutes)</option>
+    <option value="currency">Currency (USD ⇌ EUR)</option>
+    <option value="energy">Energy (Joules ⇌ Calories)</option>
+  </select>
+
+  <!-- Length Converter -->
+  <div id="lengthConverter" class="converter">
+    <input type="number" id="kmInput" placeholder="Enter kilometers" oninput="convertLength()">
+    <div class="result" id="mileResult">Miles: 0</div>
+
+    <input type="number" id="mileInput" placeholder="Enter miles" oninput="convertLength()">
+    <div class="result" id="kmResult">Kilometers: 0</div>
+  </div>
+
+  <!-- Weight Converter -->
+  <div id="weightConverter" class="converter">
+    <input type="number" id="kgInput" placeholder="Enter kilograms" oninput="convertWeight()">
+    <div class="result" id="lbsResult">Pounds: 0</div>
+
+    <input type="number" id="lbsInput" placeholder="Enter pounds" oninput="convertWeight()">
+    <div class="result" id="kgResult">Kilograms: 0</div>
+  </div>
+
+  <!-- Temperature Converter -->
+  <div id="temperatureConverter" class="converter">
+    <input type="number" id="celsiusInput" placeholder="Enter Celsius" oninput="convertTemperature()">
+    <div class="result" id="fahrenheitResult">Fahrenheit: 0</div>
+
+    <input type="number" id="fahrenheitInput" placeholder="Enter Fahrenheit" oninput="convertTemperature()">
+    <div class="result" id="celsiusResult">Celsius: 0</div>
+  </div>
+
+  <!-- Area Converter -->
+  <div id="areaConverter" class="converter">
+    <input type="number" id="sqMetersInput" placeholder="Enter square meters" oninput="convertArea()">
+    <div class="result" id="sqFeetResult">Square Feet: 0</div>
+
+    <input type="number" id="sqFeetInput" placeholder="Enter square feet" oninput="convertArea()">
+    <div class="result" id="sqMetersResult">Square Meters: 0</div>
+  </div>
+
+  <!-- Volume Converter -->
+  <div id="volumeConverter" class="converter">
+    <input type="number" id="litersInput" placeholder="Enter liters" oninput="convertVolume()">
+    <div class="result" id="gallonsResult">Gallons: 0</div>
+
+    <input type="number" id="gallonsInput" placeholder="Enter gallons" oninput="convertVolume()">
+    <div class="result" id="litersResult">Liters: 0</div>
+  </div>
+
+  <!-- Speed Converter -->
+  <div id="speedConverter" class="converter">
+    <input type="number" id="kmhInput" placeholder="Enter km/h" oninput="convertSpeed()">
+    <div class="result" id="mphResult">Miles per Hour: 0</div>
+
+    <input type="number" id="mphInput" placeholder="Enter mph" oninput="convertSpeed()">
+    <div class="result" id="kmhResult">Kilometers per Hour: 0</div>
+  </div>
+
+  <!-- Time Converter -->
+  <div id="timeConverter" class="converter">
+    <input type="number" id="secondsInput" placeholder="Enter seconds" oninput="convertTime()">
+    <div class="result" id="minutesResult">Minutes: 0</div>
+
+    <input type="number" id="minutesInput" placeholder="Enter minutes" oninput="convertTime()">
+    <div class="result" id="secondsResult">Seconds: 0</div>
+  </div>
+
+  <!-- Currency Converter -->
+  <div id="currencyConverter" class="converter">
+    <input type="number" id="usdInput" placeholder="Enter USD" oninput="convertCurrency()">
+    <div class="result" id="eurResult">EUR: 0</div>
+
+    <input type="number" id="eurInput" placeholder="Enter EUR" oninput="convertCurrency()">
+    <div class="result" id="usdResult">USD: 0</div>
+  </div>
+
+  <!-- Energy Converter -->
+  <div id="energyConverter" class="converter">
+    <input type="number" id="joulesInput" placeholder="Enter Joules" oninput="convertEnergy()">
+    <div class="result" id="caloriesResult">Calories: 0</div>
+
+    <input type="number" id="caloriesInput" placeholder="Enter Calories" oninput="convertEnergy()">
+    <div class="result" id="joulesResult">Joules: 0</div>
+  </div>
+
+  <!-- Ad Button -->
+  <button class="ad-button">🔰 Ad Here</button>
+</div>
+
+<script>
+  function convertLength() {
+    const km = parseFloat(document.getElementById('kmInput').value);
+    const miles = parseFloat(document.getElementById('mileInput').value);
+    if (!isNaN(km)) document.getElementById('mileResult').textContent = `Miles: ${(km * 0.621371).toFixed(2)}`;
+    if (!isNaN(miles)) document.getElementById('kmResult').textContent = `Kilometers: ${(miles / 0.621371).toFixed(2)}`;
+  }
+
+  function convertWeight() {
+    const kg = parseFloat(document.getElementById('kgInput').value);
+    const lbs = parseFloat(document.getElementById('lbsInput').value);
+    if (!isNaN(kg)) document.getElementById('lbsResult').textContent = `Pounds: ${(kg * 2.20462).toFixed(2)}`;
+    if (!isNaN(lbs)) document.getElementById('kgResult').textContent = `Kilograms: ${(lbs / 2.20462).toFixed(2)}`;
+  }
+
+  function convertTemperature() {
+    const celsius = parseFloat(document.getElementById('celsiusInput').value);
+    const fahrenheit = parseFloat(document.getElementById('fahrenheitInput').value);
+    if (!isNaN(celsius)) document.getElementById('fahrenheitResult').textContent = `Fahrenheit: ${(celsius * 9 / 5 + 32).toFixed(2)}`;
+    if (!isNaN(fahrenheit)) document.getElementById('celsiusResult').textContent = `Celsius: ${((fahrenheit - 32) * 5 / 9).toFixed(2)}`;
+  }
+
+  function convertArea() {
+    const sqMeters = parseFloat(document.getElementById('sqMetersInput').value);
+    const sqFeet = parseFloat(document.getElementById('sqFeetInput').value);
+    if (!isNaN(sqMeters)) document.getElementById('sqFeetResult').textContent = `Square Feet: ${(sqMeters * 10.7639).toFixed(2)}`;
+    if (!isNaN(sqFeet)) document.getElementById('sqMetersResult').textContent = `Square Meters: ${(sqFeet / 10.7639).toFixed(2)}`;
+  }
+
+  function convertVolume() {
+    const liters = parseFloat(document.getElementById('litersInput').value);
+    const gallons = parseFloat(document.getElementById('gallonsInput').value);
+    if (!isNaN(liters)) document.getElementById('gallonsResult').textContent = `Gallons: ${(liters / 3.78541).toFixed(2)}`;
+    if (!isNaN(gallons)) document.getElementById('litersResult').textContent = `Liters: ${(gallons * 3.78541).toFixed(2)}`;
+  }
+
+  function convertSpeed() {
+    const kmh = parseFloat(document.getElementById('kmhInput').value);
+    const mph = parseFloat(document.getElementById('mphInput').value);
+    if (!isNaN(kmh)) document.getElementById('mphResult').textContent = `Miles per Hour: ${(kmh * 0.621371).toFixed(2)}`;
+    if (!isNaN(mph)) document.getElementById('kmhResult').textContent = `Kilometers per Hour: ${(mph / 0.621371).toFixed(2)}`;
+  }
+
+  function convertTime() {
+    const seconds = parseFloat(document.getElementById('secondsInput').value);
+    const minutes = parseFloat(document.getElementById('minutesInput').value);
+    if (!isNaN(seconds)) document.getElementById('minutesResult').textContent = `Minutes: ${(seconds / 60).toFixed(2)}`;
+    if (!isNaN(minutes)) document.getElementById('secondsResult').textContent = `Seconds: ${(minutes * 60).toFixed(2)}`;
+  }
+
+  function convertCurrency() {
+    const usd = parseFloat(document.getElementById('usdInput').value);
+    const eur = parseFloat(document.getElementById('eurInput').value);
+    const rate = 0.85; // USD to EUR exchange rate (example)
+    if (!isNaN(usd)) document.getElementById('eurResult').textContent = `EUR: ${(usd * rate).toFixed(2)}`;
+    if (!isNaN(eur)) document.getElementById('usdResult').textContent = `USD: ${(eur / rate).toFixed(2)}`;
+  }
+
+  function convertEnergy() {
+    const joules = parseFloat(document.getElementById('joulesInput').value);
+    const calories = parseFloat(document.getElementById('caloriesInput').value);
+    if (!isNaN(joules)) document.getElementById('caloriesResult').textContent = `Calories: ${(joules / 4.184).toFixed(2)}`;
+    if (!isNaN(calories)) document.getElementById('joulesResult').textContent = `Joules: ${(calories * 4.184).toFixed(2)}`;
+  }
+
+  function updateConverter() {
+    const unitType = document.getElementById('unitType').value;
+    document.querySelectorAll('.converter').forEach(converter => converter.style.display = 'none');
+    document.getElementById(unitType + 'Converter').style.display = 'block';
+  }
+
+  updateConverter(); // Initialize to show default
+</script>
+
+</body>
+</html>

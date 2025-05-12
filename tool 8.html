@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Password Generator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f9f9f9;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 400px;
+      width: 100%;
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .home-button, .ad-button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    .home-button:hover, .ad-button:hover {
+      background: #218838;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .options {
+      margin: 15px 0;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+      word-break: break-all;
+    }
+    @media (max-width: 500px) {
+      h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="home-button" onclick="location.href='home.html'"> <a href="index.html" style="text-decoration: none; color: inherit;">🏠 Home</a></button>    <h2>Word & Character Counter</h2>
+
+    <h2>Password Generator</h2>
+
+    <button class="ad-button">🔰 Ad Here</button>
+
+    <label for="length">Password Length:</label>
+    <input type="number" id="length" min="4" max="50" value="12" />
+
+    <div class="options">
+      <label><input type="checkbox" id="uppercase" checked /> Include Uppercase</label>
+      <label><input type="checkbox" id="lowercase" checked /> Include Lowercase</label>
+      <label><input type="checkbox" id="numbers" checked /> Include Numbers</label>
+      <label><input type="checkbox" id="symbols" checked /> Include Symbols</label>
+    </div>
+
+    <button onclick="generatePassword()">🔐 Generate Password</button>
+
+    <div class="result" id="result">Your password will appear here.</div>
+
+    <button class="ad-button">🔰 Ad Here</button>
+  </div>
+
+  <script>
+    function generatePassword() {
+      const length = parseInt(document.getElementById("length").value);
+      const hasUpper = document.getElementById("uppercase").checked;
+      const hasLower = document.getElementById("lowercase").checked;
+      const hasNumbers = document.getElementById("numbers").checked;
+      const hasSymbols = document.getElementById("symbols").checked;
+
+      const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lower = "abcdefghijklmnopqrstuvwxyz";
+      const numbers = "0123456789";
+      const symbols = "!@#$%^&*()_+{}[]<>?,.";
+
+      let chars = "";
+      if (hasUpper) chars += upper;
+      if (hasLower) chars += lower;
+      if (hasNumbers) chars += numbers;
+      if (hasSymbols) chars += symbols;
+
+      if (!chars) {
+        document.getElementById("result").textContent = "Select at least one option!";
+        return;
+      }
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+
+      document.getElementById("result").textContent = password;
+    }
+  </script>
+</body>
+</html>

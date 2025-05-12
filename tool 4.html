@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .home-button, .ad-button {
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .home-button:hover, .ad-button:hover {
+      background-color: #218838;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+    }
+
+    button.calc-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    button.calc-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .result-box {
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      line-height: 1.6;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .result-box {
+        font-size: 16px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .calc-btn, .home-button, .ad-button {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Home Button -->
+   <button class="home-button" onclick="location.href='home.html'"> <a href="index.html" style="text-decoration: none; color: inherit;">🏠 Home</a></button>    <h2>Word & Character Counter</h2>
+
+    <h2>Detailed Age Calculator</h2>
+
+    <!-- Ad Button Before Tool -->
+    <button class="ad-button">Ad: Your Ad Here</button>
+
+    <!-- Input -->
+    <input type="date" id="dob">
+    <button class="calc-btn" onclick="calculateAge()">Calculate Age</button>
+
+    <!-- Result -->
+    <div class="result-box" id="result">
+      Enter your date of birth to see your age.
+    </div>
+
+    <!-- Ad Button After Tool -->
+    <button class="ad-button">Ad: Your Ad Here</button>
+
+  </div>
+
+  <script>
+    function calculateAge() {
+      const dob = document.getElementById("dob").value;
+      if (!dob) {
+        document.getElementById("result").innerText = "Please enter a valid date of birth.";
+        return;
+      }
+
+      const birthDate = new Date(dob);
+      const today = new Date();
+
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
+
+      if (days < 0) {
+        months--;
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        days += prevMonth;
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      const diffTime = today.getTime() - birthDate.getTime();
+      const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      document.getElementById("result").innerHTML = `
+        🎂 You are <br>
+        <strong>${years}</strong> years, <strong>${months}</strong> months, and <strong>${days}</strong> days old.<br><br>
+        📆 Total Days: <strong>${totalDays}</strong>
+      `;
+    }
+  </script>
+
+</body>
+</html>

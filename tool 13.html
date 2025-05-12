@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percentage Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: center;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+<button class="home-button" onclick="location.href='home.html'"> <a href="index.html" style="text-decoration: none; color: inherit;">🏠 Home</a></button>
+<br>
+  <!-- Ad Button Before Tool -->
+    <button class="ad-button">Ad: Your Ad Here</button>
+
+    <h1>Percentage Calculator</h1>
+    <div class="input-group">
+      <label for="operation">Select Operation</label>
+      <select id="operation">
+        <option value="find-percentage">Find Percentage of Value</option>
+        <option value="find-total">Find Total from Percentage</option>
+        <option value="find-percentage-of-total">Find Percentage Based on Two Values</option>
+        <option value="percentage-change">Percentage Increase or Decrease</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label for="value1">Value 1</label>
+      <input type="number" id="value1" placeholder="Enter a value" required />
+    </div>
+
+    <div class="input-group" id="value2-group" style="display: none;">
+      <label for="value2">Value 2</label>
+      <input type="number" id="value2" placeholder="Enter second value" />
+    </div>
+
+    <div class="input-group" id="percentage-group" style="display: none;">
+      <label for="percentage">Percentage (%)</label>
+      <input type="number" id="percentage" placeholder="Enter percentage" />
+    </div>
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const operationSelect = document.getElementById('operation');
+    const value1Input = document.getElementById('value1');
+    const value2Input = document.getElementById('value2');
+    const percentageInput = document.getElementById('percentage');
+    const resultDiv = document.getElementById('result');
+    const value2Group = document.getElementById('value2-group');
+    const percentageGroup = document.getElementById('percentage-group');
+
+    // Update the form based on selected operation
+    operationSelect.addEventListener('change', updateForm);
+
+    function updateForm() {
+      const operation = operationSelect.value;
+      if (operation === 'find-percentage') {
+        value2Group.style.display = 'none';
+        percentageGroup.style.display = 'inline-block';
+      } else if (operation === 'find-total') {
+        value2Group.style.display = 'inline-block';
+        percentageGroup.style.display = 'inline-block';
+      } else if (operation === 'find-percentage-of-total') {
+        value2Group.style.display = 'inline-block';
+        percentageGroup.style.display = 'none';
+      } else if (operation === 'percentage-change') {
+        value2Group.style.display = 'inline-block';
+        percentageGroup.style.display = 'none';
+      }
+    }
+
+    function calculate() {
+      const value1 = parseFloat(value1Input.value);
+      const value2 = parseFloat(value2Input.value);
+      const percentage = parseFloat(percentageInput.value);
+      const operation = operationSelect.value;
+
+      if (isNaN(value1) || (operation !== 'find-percentage' && isNaN(value2)) || (operation !== 'find-percentage-of-total' && isNaN(percentage))) {
+        resultDiv.textContent = 'Please fill in all fields with valid numbers.';
+        return;
+      }
+
+      let result;
+      if (operation === 'find-percentage') {
+        // Find percentage of value
+        result = (value1 * percentage) / 100;
+        resultDiv.textContent = `${percentage}% of ${value1} is ${result}`;
+      } else if (operation === 'find-total') {
+        // Find total from percentage
+        result = (value1 * 100) / percentage;
+        resultDiv.textContent = `The total amount is ${result}`;
+      } else if (operation === 'find-percentage-of-total') {
+        // Find percentage of total
+        result = (value1 / value2) * 100;
+        resultDiv.textContent = `${value1} is ${result}% of ${value2}`;
+      } else if (operation === 'percentage-change') {
+        // Percentage increase or decrease
+        result = ((value2 - value1) / value1) * 100;
+        resultDiv.textContent = `The percentage change from ${value1} to ${value2} is ${result}%`;
+      }
+    }
+
+    // Initialize form based on the default operation
+    updateForm();
+  </script>
+</body>
+</html>
